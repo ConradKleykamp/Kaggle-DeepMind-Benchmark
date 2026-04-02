@@ -126,8 +126,13 @@ def divided_attention(
 
     response = llm.prompt(prompt)
 
-    kbench.assertions.assess_response_with_judge(
+    report = kbench.assertions.assess_response_with_judge(
         criteria=criteria,
         response_text=response,
         judge_llm=llm,
     )
+    for result in report.results:
+        kbench.assertions.assert_true(
+            result.passed,
+            expectation=result.criterion,
+        )

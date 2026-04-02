@@ -22,14 +22,14 @@ TASK_DATA = pd.DataFrame([
             "Transaction 15: Bob received $95 from Eve."
         ),
         "question": "What is Alice's net balance across all transactions? Show your working.",
-        "expected_answer": "-75",
+        "expected_answer": "-225",
         "criteria": [
             "Response correctly identifies all transactions involving Alice.",
             "Response accounts for Alice sending $200 (debit).",
             "Response accounts for Alice receiving $300 from Frank (credit).",
             "Response accounts for Alice paying $75 for phone bills (debit).",
             "Response accounts for Eve receiving $250 from Alice (debit).",
-            "Final net balance calculated is negative $75.",
+            "Final net balance calculated is negative $225.",
         ],
     },
     {
@@ -73,7 +73,7 @@ TASK_DATA = pd.DataFrame([
             "Item J: Category=Food, Price=$22, Stock=300 units."
         ),
         "question": "What is the total inventory value of all Electronics items?",
-        "expected_answer": "$18212",
+        "expected_answer": "$21391",
         "criteria": [
             "Response identifies all four Electronics items: A, C, F, and I.",
             "Response correctly calculates Item A value as $4186 (299 x 14).",
