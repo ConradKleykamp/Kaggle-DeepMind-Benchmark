@@ -14,8 +14,7 @@ from src.tasks.divided_attention import (
     divided_attention,
     TASK_DATA as DIVIDED_TASK_DATA,
 )
-
-RESULTS_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "results")
+from src.utils.config import RESULTS_DIR
 
 
 def run_selective_attention() -> list[dict]:
