@@ -22,7 +22,7 @@ TASK_DATA = pd.DataFrame([
             "Transaction 15: Bob received $95 from Eve."
         ),
         "question": "What is Alice's net balance across all transactions? Show your working.",
-        "expected_answer": "-225",
+        "expected_answer": r"-\s*\$?\s*225|\bnegative\b\s*\$?\s*225",
         "criteria": [
             "Response correctly identifies all transactions involving Alice.",
             "Response accounts for Alice sending $200 (debit).",
@@ -73,7 +73,7 @@ TASK_DATA = pd.DataFrame([
             "Item J: Category=Food, Price=$22, Stock=300 units."
         ),
         "question": "What is the total inventory value of all Electronics items?",
-        "expected_answer": "$21391",
+        "expected_answer": r"\$?\s*21,?391",
         "criteria": [
             "Response identifies all four Electronics items: A, C, F, and I.",
             "Response correctly calculates Item A value as $4186 (299 x 14).",
@@ -110,7 +110,7 @@ def sustained_attention(
     kbench.assertions.assert_contains_regex(
         pattern=expected_answer,
         text=response,
-        expectation=f"Response should contain the correct answer: {expected_answer}",
+        expectation="Response should contain the correct numeric answer",
     )
 
     kbench.assertions.assess_response_with_judge(

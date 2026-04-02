@@ -207,6 +207,9 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
+# kaggle-benchmarks generated task files
+*.task.json
+
 # Marimo
 marimo/_static/
 marimo/_lsp/
