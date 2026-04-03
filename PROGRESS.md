@@ -22,9 +22,7 @@ The benchmark is implemented using the `kaggle-benchmarks` framework. The submis
 |---|---|
 | `kaggle-benchmarks` | Task definition, LLM access, assertion framework, `Run` result tracking |
 | `pandas` | TASK_DATA definition, results aggregation into DataFrame |
-| `pytest` | Smoke tests for import integrity and data structure validation |
 | `conda` | Environment management (`kaggle-deepmind` env, Python 3.11) |
-| `python-dotenv` | Local env var loading (not used in Kaggle, env is auto-injected) |
 | GitHub | Version control and remote backup |
 | Claude Code | Development assistant throughout (architecture, implementation, debugging) |
 | VS Code | Primary editor with Jupyter notebook support |
@@ -39,19 +37,9 @@ The benchmark is implemented using the `kaggle-benchmarks` framework. The submis
 │   ├── selective_attention_benchmark.ipynb  # Kaggle submission, selective attention task
 │   ├── sustained_attention_benchmark.ipynb  # Kaggle submission, sustained attention task
 │   └── divided_attention_benchmark.ipynb    # Kaggle submission, divided attention task
-├── src/
-│   └── tasks/
-│       ├── selective_attention.py  # TASK_DATA and @kbench.task for selective attention
-│       ├── sustained_attention.py  # TASK_DATA and @kbench.task for sustained attention
-│       └── divided_attention.py    # TASK_DATA and @kbench.task for divided attention
-├── scripts/
-│   └── run_local.py                # Local dry-run tool, previews all task rows without API calls
-├── tests/
-│   └── test_pipeline.py            # Smoke tests: validates TASK_DATA structure (3/3 passing)
-├── results/                        # Output directory for benchmark CSVs
-├── CLAUDE.md                       # Project context for Claude Code
-├── PROGRESS.md                     # This file
-└── environment.yml                 # Conda environment specification
+├── CLAUDE.md                                # Project context for Claude Code
+├── PROGRESS.md                              # This file
+└── environment.yml                          # Conda environment specification
 ```
 
 ---
@@ -90,7 +78,7 @@ The model performs perfectly on selective attention but degrades measurably unde
 
 **Complete. Submitted to Kaggle.**
 
-All three task notebooks ran successfully in the Kaggle environment. Results recorded above. Smoke tests pass (4/4).
+All three task notebooks ran successfully in the Kaggle environment. Results recorded above.
 
 ---
 

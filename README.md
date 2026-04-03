@@ -45,31 +45,7 @@ The model performs perfectly on selective attention but degrades under sustained
 |---|---|
 | `kaggle-benchmarks` | Task definition, LLM access via `kbench.llm`, assertion framework |
 | `pandas` | TASK_DATA definition and results aggregation |
-| `pytest` | Smoke tests for imports and data structure |
 | `conda` | Environment management (Python 3.11) |
-| `python-dotenv` | Local env var loading |
-
----
-
-## Running Locally
-
-The following commands work locally without Kaggle credentials.
-
-**Set up the environment**
-```bash
-conda env create -f environment.yml
-conda activate kaggle-deepmind
-```
-
-**Run smoke tests** (validates imports and data structure, no API calls)
-```bash
-python -m pytest tests/test_pipeline.py -v
-```
-
-**Preview all task data** (prints task rows without making any API calls)
-```bash
-python -m scripts.run_local
-```
 
 ---
 
@@ -78,18 +54,10 @@ python -m scripts.run_local
 ```
 .
 ├── notebooks/
-│   ├── selective_attention_benchmark.ipynb  # Kaggle submission, selective attention
-│   ├── sustained_attention_benchmark.ipynb  # Kaggle submission, sustained attention
-│   └── divided_attention_benchmark.ipynb    # Kaggle submission, divided attention
-├── src/
-│   └── tasks/
-│       ├── selective_attention.py  # TASK_DATA and @kbench.task function
-│       ├── sustained_attention.py  # TASK_DATA and @kbench.task function
-│       └── divided_attention.py    # TASK_DATA and @kbench.task function
-├── scripts/
-│   └── run_local.py                # Dry-run preview, no API calls
-├── tests/
-│   └── test_pipeline.py            # Smoke tests (3/3 passing)
-├── results/                        # CSV output directory
-└── environment.yml                 # Conda environment spec
+│   ├── selective_attention_benchmark.ipynb
+│   ├── sustained_attention_benchmark.ipynb
+│   └── divided_attention_benchmark.ipynb
+├── environment.yml
+├── README.md
+└── PROGRESS.md
 ```
