@@ -40,20 +40,15 @@ The benchmark is implemented using the `kaggle-benchmarks` framework. The submis
 │   ├── sustained_attention_benchmark.ipynb  # Kaggle submission, sustained attention task
 │   └── divided_attention_benchmark.ipynb    # Kaggle submission, divided attention task
 ├── src/
-│   ├── tasks/
-│   │   ├── selective_attention.py  # TASK_DATA and @kbench.task for selective attention
-│   │   ├── sustained_attention.py  # TASK_DATA and @kbench.task for sustained attention
-│   │   └── divided_attention.py    # TASK_DATA and @kbench.task for divided attention
-│   ├── evaluation/
-│   │   └── runner.py               # Ties all three tasks together, logs results to CSV
-│   └── utils/
-│       └── config.py               # Loads .env, exports RESULTS_DIR and shared path constants
+│   └── tasks/
+│       ├── selective_attention.py  # TASK_DATA and @kbench.task for selective attention
+│       ├── sustained_attention.py  # TASK_DATA and @kbench.task for sustained attention
+│       └── divided_attention.py    # TASK_DATA and @kbench.task for divided attention
 ├── scripts/
 │   └── run_local.py                # Local dry-run tool, previews all task rows without API calls
 ├── tests/
-│   └── test_pipeline.py            # Smoke tests: validates TASK_DATA structure and runner imports
-├── results/                        # Output directory for CSV results from runner.py
-├── data/                           # Raw and processed data directories (reserved)
+│   └── test_pipeline.py            # Smoke tests: validates TASK_DATA structure (3/3 passing)
+├── results/                        # Output directory for benchmark CSVs
 ├── CLAUDE.md                       # Project context for Claude Code
 ├── PROGRESS.md                     # This file
 └── environment.yml                 # Conda environment specification

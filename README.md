@@ -82,18 +82,14 @@ python -m scripts.run_local
 │   ├── sustained_attention_benchmark.ipynb  # Kaggle submission, sustained attention
 │   └── divided_attention_benchmark.ipynb    # Kaggle submission, divided attention
 ├── src/
-│   ├── tasks/
-│   │   ├── selective_attention.py  # TASK_DATA and @kbench.task function
-│   │   ├── sustained_attention.py  # TASK_DATA and @kbench.task function
-│   │   └── divided_attention.py    # TASK_DATA and @kbench.task function
-│   ├── evaluation/
-│   │   └── runner.py               # Runs all tasks and logs results to CSV
-│   └── utils/
-│       └── config.py               # Shared path constants
+│   └── tasks/
+│       ├── selective_attention.py  # TASK_DATA and @kbench.task function
+│       ├── sustained_attention.py  # TASK_DATA and @kbench.task function
+│       └── divided_attention.py    # TASK_DATA and @kbench.task function
 ├── scripts/
 │   └── run_local.py                # Dry-run preview, no API calls
 ├── tests/
-│   └── test_pipeline.py            # Smoke tests (4/4 passing)
+│   └── test_pipeline.py            # Smoke tests (3/3 passing)
 ├── results/                        # CSV output directory
 └── environment.yml                 # Conda environment spec
 ```

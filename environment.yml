@@ -3,4 +3,10 @@ channels:
   - defaults
 dependencies:
   - python=3.11
+  - pandas
+  - pytest
+  - pip
+  - pip:
+    - kaggle-benchmarks
+    - python-dotenv
 prefix: /Users/conradkleykamp/opt/anaconda3/envs/kaggle-deepmind

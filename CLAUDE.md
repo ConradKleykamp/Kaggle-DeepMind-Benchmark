@@ -1,29 +1,19 @@
 # Kaggle-DeepMind-Benchmark
 
 ## Project Overview
-Building an attention benchmark for the Google DeepMind x Kaggle AGI 
-hackathon. The benchmark evaluates frontier models across three attention 
-tasks: selective, sustained, and divided attention.
+An attention benchmark for the Google DeepMind x Kaggle AGI Benchmark Hackathon.
+The benchmark evaluates frontier models across three attention tasks: selective,
+sustained, and divided attention. Each task is implemented as a self-contained
+Kaggle notebook using the kaggle-benchmarks framework.
 
 ## Stack
-- Python, conda, pandas, MLflow, pytest
-- Anthropic/OpenAI SDKs for model evaluation
+- Python 3.11, conda, pandas, pytest
+- kaggle-benchmarks (task definition, LLM access, assertions)
 - GitHub for version control
 
-## Standing Instructions
-After completing any meaningful unit of work, update PROGRESS.md with:
-- What was built or changed
-- Key decisions made and why
-- Current project status
-- Immediate next steps
-
-Keep PROGRESS.md current at all times. It is the single source of truth 
-for project progress and will form the basis of the final competition writeup.
-
 ## Structure
-- src/tasks/ — attention task generators
-- src/evaluation/ — scoring and model evaluation
-- src/utils/ — shared helpers
-- data/raw/ and data/processed/ — data layers
-- notebooks/ — EDA and prototyping
-- results/ — model outputs and scores
+- src/tasks/ — task definitions (TASK_DATA and @kbench.task functions)
+- notebooks/ — Kaggle submission notebooks, one per task
+- scripts/ — local dry-run tooling, no API calls
+- tests/ — smoke tests for import integrity and data structure
+- results/ — CSV output directory

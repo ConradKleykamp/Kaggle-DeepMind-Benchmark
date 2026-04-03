@@ -28,9 +28,3 @@ def test_divided_attention_task_data():
         assert col in TASK_DATA.columns, f"Missing column: {col}"
 
 
-# --- Runner callables ---
-
-def test_runner_callables():
-    from src.evaluation.runner import run_all, save_results
-    assert callable(run_all)
-    assert callable(save_results)
