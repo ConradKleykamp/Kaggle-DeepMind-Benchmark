@@ -41,6 +41,26 @@ Assertion counts are standardized at 5 criteria per task row:
 
 ---
 
+## Results
+
+Evaluated across 33 models in the Kaggle environment. Full per-model breakdowns are available in the `results/` CSVs and in the executed notebooks.
+
+| Task | Models | Avg Pass Rate | Top Score | Bottom Score |
+|---|---|---|---|---|
+| Selective Attention | 33 | 95.2% | 100% (14 models) | 73.3% |
+| Sustained Attention | 33 | 90.9% | 94.4% (24 models) | 33.3% |
+| Divided Attention | 33 | 91.3% | 93.3% (27 models) | 66.7% |
+
+**Key findings:**
+
+- Selective attention is the strongest task overall — 14 of 33 models achieved a perfect score, and no model scored below 73.3%.
+- No model scored 100% on sustained or divided attention, confirming these tasks impose a measurable ceiling even for frontier models.
+- The performance hierarchy holds across all 33 models: selective > divided ≈ sustained. Distractor filtering is better-supported in current LLMs than sequential tracking or simultaneous stream-splitting.
+- `gemma-3-1b` is a consistent outlier across all three tasks (73.3% / 33.3% / 66.7%), with a particularly steep drop on sustained attention. It is the smallest model in the set by a significant margin.
+- `gemini-2.0-flash` underperforms its newer variants on selective (80%) and sustained (77.8%), while `gemini-2.0-flash-lite` scores 94.4% on sustained — suggesting architectural or training differences beyond generation alone.
+
+---
+
 ## Tech Stack
 
 | Tool | Role |
@@ -59,6 +79,10 @@ Assertion counts are standardized at 5 criteria per task row:
 │   ├── selective_attention_benchmark.ipynb
 │   ├── sustained_attention_benchmark.ipynb
 │   └── divided_attention_benchmark.ipynb
+├── results/
+│   ├── selective_attention_results.csv
+│   ├── sustained_attention_results.csv
+│   └── divided_attention_results.csv
 ├── environment.yml
 ├── README.md
 └── PROGRESS.md
