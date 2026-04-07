@@ -78,16 +78,20 @@ Evaluated across 33 models in the Kaggle environment. Full per-model breakdowns 
 ```
 .
 ├── notebooks/
-│   ├── divided_attention_benchmark.ipynb   # overview: all 33 models, visual output
+│   ├── divided_attention_benchmark.ipynb   # overview: runs all 33 models, visual output
 │   ├── divided_attention_task.ipynb        # task runner: single model via kbench.llm
-│   ├── selective_attention_benchmark.ipynb
-│   ├── selective_attention_task.ipynb
-│   ├── sustained_attention_benchmark.ipynb
-│   └── sustained_attention_task.ipynb
+│   ├── selective_attention_benchmark.ipynb # overview: runs all 33 models, visual output
+│   ├── selective_attention_task.ipynb      # task runner: single model via kbench.llm
+│   ├── sustained_attention_benchmark.ipynb # overview: runs all 33 models, visual output
+│   └── sustained_attention_task.ipynb      # task runner: single model via kbench.llm
 ├── results/
 │   ├── divided_attention_results.csv
 │   ├── selective_attention_results.csv
 │   └── sustained_attention_results.csv
+├── divided_attention.task.json
+├── selective_attention.task.json
+├── sustained_attention.task.json
+├── CLAUDE.md
 ├── environment.yml
 ├── README.md
 └── PROGRESS.md

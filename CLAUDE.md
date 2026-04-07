@@ -7,13 +7,10 @@ sustained, and divided attention. Each task is implemented as a self-contained
 Kaggle notebook using the kaggle-benchmarks framework.
 
 ## Stack
-- Python 3.11, conda, pandas, pytest
+- Python 3.11, conda, pandas
 - kaggle-benchmarks (task definition, LLM access, assertions)
 - GitHub for version control
 
 ## Structure
-- src/tasks/ — task definitions (TASK_DATA and @kbench.task functions)
-- notebooks/ — Kaggle submission notebooks, one per task
-- scripts/ — local dry-run tooling, no API calls
-- tests/ — smoke tests for import integrity and data structure
-- results/ — CSV output directory
+- notebooks/ -- Kaggle benchmark notebooks (overview) and task notebooks (single-model)
+- results/ -- CSV output from each benchmark run
