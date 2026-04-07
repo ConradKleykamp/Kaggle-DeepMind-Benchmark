@@ -35,13 +35,9 @@ All three tasks are implemented, executed, and submitted. Results have been coll
 │   ├── divided_attention_results.csv
 │   ├── selective_attention_results.csv
 │   └── sustained_attention_results.csv
-├── divided_attention.task.json
-├── selective_attention.task.json
-├── sustained_attention.task.json
 ├── CLAUDE.md
 ├── PROGRESS.md
-├── README.md
-└── environment.yml
+└── README.md
 ```
 
 ---

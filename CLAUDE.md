@@ -7,7 +7,7 @@ sustained, and divided attention. Each task is implemented as a self-contained
 Kaggle notebook using the kaggle-benchmarks framework.
 
 ## Stack
-- Python 3.11, conda, pandas
+- Python 3.11, pandas
 - kaggle-benchmarks (task definition, LLM access, assertions)
 - GitHub for version control
 

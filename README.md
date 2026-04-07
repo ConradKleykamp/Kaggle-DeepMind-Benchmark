@@ -69,7 +69,6 @@ Evaluated across 33 models in the Kaggle environment. Full per-model breakdowns 
 |---|---|
 | `kaggle-benchmarks` | Task definition, LLM access via `kbench.llm`, assertion framework |
 | `pandas` | TASK_DATA definition and results aggregation |
-| `conda` | Environment management (Python 3.11) |
 
 ---
 
@@ -88,11 +87,7 @@ Evaluated across 33 models in the Kaggle environment. Full per-model breakdowns 
 │   ├── divided_attention_results.csv
 │   ├── selective_attention_results.csv
 │   └── sustained_attention_results.csv
-├── divided_attention.task.json
-├── selective_attention.task.json
-├── sustained_attention.task.json
 ├── CLAUDE.md
-├── environment.yml
 ├── README.md
 └── PROGRESS.md
 ```
