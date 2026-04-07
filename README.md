@@ -2,7 +2,7 @@
 
 A benchmark submitted to the **Google DeepMind x Kaggle AGI Benchmark Hackathon** that evaluates language model attentional control across three cognitive tasks drawn from human neuropsychology. Rather than testing factual recall or reasoning in isolation, this benchmark probes whether a model can direct, sustain, and divide its attention, core faculties in AGI evaluation.
 
-Each notebook runs across all 33 models available in the Kaggle environment and uses a fixed judge for consistent cross-model scoring.
+The benchmark notebooks run across all 33 models available in the Kaggle environment and use a fixed judge for consistent cross-model scoring. Task notebooks are also included for single-model evaluation via the Kaggle task runner.
 
 > **Environment note:** The submission notebooks are designed to run inside the **Kaggle notebook environment**, where `kaggle-benchmarks` is pre-installed and `kbench.llm`, `kbench.judge_llm`, and `kbench.llms` are auto-configured via injected credentials. They cannot make live API calls outside that environment.
 
@@ -45,6 +45,8 @@ Assertion counts are standardized at 5 criteria per task row:
 
 Evaluated across 33 models in the Kaggle environment. Full per-model breakdowns are available in the `results/` CSVs and in the executed notebooks.
 
+> **Note:** LLM outputs are non-deterministic and no random seed can be set for hosted models. Pass rates may vary slightly across runs — the figures below reflect a single full evaluation run.
+
 | Task | Models | Avg Pass Rate | Top Score | Bottom Score |
 |---|---|---|---|---|
 | Selective Attention | 33 | 95.2% | 100% (14 models) | 73.3% |
@@ -76,13 +78,16 @@ Evaluated across 33 models in the Kaggle environment. Full per-model breakdowns 
 ```
 .
 ├── notebooks/
+│   ├── divided_attention_benchmark.ipynb   # overview: all 33 models, visual output
+│   ├── divided_attention_task.ipynb        # task runner: single model via kbench.llm
 │   ├── selective_attention_benchmark.ipynb
+│   ├── selective_attention_task.ipynb
 │   ├── sustained_attention_benchmark.ipynb
-│   └── divided_attention_benchmark.ipynb
+│   └── sustained_attention_task.ipynb
 ├── results/
+│   ├── divided_attention_results.csv
 │   ├── selective_attention_results.csv
-│   ├── sustained_attention_results.csv
-│   └── divided_attention_results.csv
+│   └── sustained_attention_results.csv
 ├── environment.yml
 ├── README.md
 └── PROGRESS.md
