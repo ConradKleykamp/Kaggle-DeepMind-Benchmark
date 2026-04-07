@@ -45,7 +45,7 @@ Assertion counts are standardized at 5 criteria per task row:
 
 Evaluated across 33 models in the Kaggle environment. Full per-model breakdowns are available in the `results/` CSVs and in the executed notebooks.
 
-> **Note:** LLM outputs are non-deterministic and no random seed can be set for hosted models. Pass rates may vary slightly across runs — the figures below reflect a single full evaluation run.
+> **Note:** LLM outputs are non-deterministic and no random seed can be set for hosted models. Pass rates may vary slightly across runs. The figures below reflect a single full evaluation run.
 
 | Task | Models | Avg Pass Rate | Top Score | Bottom Score |
 |---|---|---|---|---|
@@ -55,11 +55,11 @@ Evaluated across 33 models in the Kaggle environment. Full per-model breakdowns 
 
 **Key findings:**
 
-- Selective attention is the strongest task overall — 14 of 33 models achieved a perfect score, and no model scored below 73.3%.
+- Selective attention is the strongest task overall: 14 of 33 models achieved a perfect score, and no model scored below 73.3%.
 - No model scored 100% on sustained or divided attention, confirming these tasks impose a measurable ceiling even for frontier models.
 - The performance hierarchy holds across all 33 models: selective > divided ≈ sustained. Distractor filtering is better-supported in current LLMs than sequential tracking or simultaneous stream-splitting.
 - `gemma-3-1b` is a consistent outlier across all three tasks (73.3% / 33.3% / 66.7%), with a particularly steep drop on sustained attention. It is the smallest model in the set by a significant margin.
-- `gemini-2.0-flash` underperforms its newer variants on selective (80%) and sustained (77.8%), while `gemini-2.0-flash-lite` scores 94.4% on sustained — suggesting architectural or training differences beyond generation alone.
+- `gemini-2.0-flash` underperforms its newer variants on selective (80%) and sustained (77.8%), while `gemini-2.0-flash-lite` scores 94.4% on sustained, suggesting architectural or training differences beyond generation alone.
 
 ---
 
