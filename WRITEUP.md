@@ -110,6 +110,12 @@ As LLMs are deployed in real-world environments that require long-context tracki
 
 ---
 
+## LLM Usage
+
+Claude Code was used throughout this project as a development assistant, primarily for code tuning, implementation debugging, and refining task criteria wording. Task design, scenario selection, and all analytical judgements are my own.
+
+---
+
 ## References and Citations
 
 - Broadbent, D. E. (1958). *Perception and Communication.* Pergamon Press. (foundational model of selective attention)

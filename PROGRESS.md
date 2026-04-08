@@ -6,6 +6,8 @@ Submission for the **Google DeepMind x Kaggle AGI Benchmark Hackathon**. The ben
 
 ---
 
+> **LLM Usage:** Claude Code was used throughout this project as a development assistant, primarily for code tuning, implementation debugging, and refining task criteria wording. Task design, scenario selection, and all analytical judgements are my own.
+
 ## Status: Complete
 
 All three tasks are implemented, executed, and submitted. Results have been collected across 33 models and are documented in the `results/` CSVs and executed benchmark notebooks.
