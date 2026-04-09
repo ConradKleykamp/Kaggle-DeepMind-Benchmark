@@ -38,7 +38,7 @@ The benchmark consists of three tasks, each targeting a distinct type of attenti
 
 **Divided Attention** tests the ability to simultaneously monitor and reason across two independent information streams, keeping facts from each correctly attributed without conflation. Models are given two clearly labeled streams and must answer a question that requires drawing on both.
 
-Each task contains 3 scenarios. Selective and divided attention use 5 judge-evaluated criteria per scenario (15 assertions per model). Sustained attention uses 5 judge-evaluated criteria plus 1 regex hard-check per scenario (18 assertions per model).
+Selective attention uses 3 scenarios and 5 judge-evaluated criteria per scenario (15 assertions per model). Sustained attention uses 5 scenarios and 5 judge-evaluated criteria plus 1 regex hard-check per scenario (30 assertions per model). Divided attention uses 5 scenarios and 5 judge-evaluated criteria per scenario (25 assertions per model).
 
 All responses are scored by a fixed external judge model (`kbench.judge_llm`) rather than by the model being tested. This eliminates self-evaluation bias and ensures scores are directly comparable across all 33 models.
 
@@ -46,22 +46,26 @@ All responses are scored by a fixed external judge model (`kbench.judge_llm`) ra
 
 ## Dataset
 
-Each task uses 3 handcrafted scenarios designed to isolate the target attentional behavior. Scenarios were written to be realistic, clearly structured, and free of ambiguity, so that failures reflect attentional lapses rather than unclear instructions.
+Selective attention uses 3 handcrafted scenarios. Sustained and divided attention each use 5 scenarios spanning a range of difficulty levels. All scenarios were designed to isolate the target attentional behavior. Scenarios were written to be realistic, clearly structured, and free of ambiguity, so that failures reflect attentional lapses rather than unclear instructions.
 
 **Selective Attention scenarios:**
 - A corporate annual report mixing financial metrics with strategic announcements and headcount data. The model must extract only the financial performance figures.
 - A clinical patient note mixing vital signs with unrelated personal details. The model must report only the clinical observations.
 - A research study description mixing experimental findings with researcher background and funding information. The model must identify only the key methodology and results.
 
-**Sustained Attention scenarios:**
+**Sustained Attention scenarios (5):**
 - 15 financial transactions involving multiple named parties. The model must calculate one person's exact net balance across all transactions, showing all working.
 - 14 days of weather records. The model must count how many days met two simultaneous conditions.
 - 10 inventory items across multiple categories. The model must calculate the total inventory value for one specific category.
+- 8 expense report entries across multiple employees and categories. The model must total one specific category.
+- 12 server request log entries mixing two servers and two status types. The model must calculate the average response time for successful requests on one server only.
 
-**Divided Attention scenarios:**
+**Divided Attention scenarios (5):**
 - Log files from two servers running in parallel. The model must report error counts per server and identify which error type appeared on both.
 - Trade histories from two separate investment portfolios. The model must identify stocks appearing in both and determine which portfolio realized a profit on its sold positions.
 - Sprint update logs from two separate engineering teams. The model must identify which team was blocked and on which day their work became directly dependent on each other.
+- Academic records for two students. The model must identify who scored higher on a specific exam and who has the higher average across assignments only.
+- Weekly production logs from two factories. The model must compare total output, total defects, and correctly attribute each factory's production halt to its distinct cause.
 
 ---
 
@@ -70,6 +74,8 @@ Each task uses 3 handcrafted scenarios designed to isolate the target attentiona
 The benchmark is implemented using the `kaggle-benchmarks` framework inside the Kaggle notebook environment, where `kaggle-benchmarks` is pre-installed and model access is provided via `kbench.llm`, `kbench.llms`, and `kbench.judge_llm`.
 
 Each task is defined using the `@kbench.task` decorator, which registers the task function with the framework. Task data is defined as a `pandas` DataFrame (`TASK_DATA`) and passed to the task via `bind_dataframe`. The benchmark notebooks loop over all 33 available models using `kbench.llms`, running every task scenario against each model and collecting results.
+
+Scenario counts differ across tasks because each was calibrated to the configuration that maximized performance discrimination across models. Additional scenarios improved discrimination for sustained and divided attention but compressed the performance spread for selective attention. Pass rates are used for all cross-task comparisons, making the differing totals transparent but not consequential for interpretation.
 
 Responses are evaluated using two assertion types:
 
@@ -89,22 +95,25 @@ Evaluated across 33 models in the Kaggle environment. Full per-model breakdowns 
 | Task | Models | Avg Pass Rate | Top Score | Bottom Score |
 |---|---|---|---|---|
 | Selective Attention | 33 | 95.2% | 100% (14 models) | 73.3% |
-| Sustained Attention | 33 | 90.9% | 94.4% (24 models) | 33.3% |
-| Divided Attention | 33 | 91.3% | 93.3% (27 models) | 66.7% |
+| Sustained Attention | 33 | 96.8% | 100% (25 models) | 36.7% |
+| Divided Attention | 33 | 93.6% | 100% (16 models) | 68.0% |
 
 **Key findings:**
 
-- Selective attention is the strongest task overall: 14 of 33 models achieved a perfect score, and no model scored below 73.3%.
-- No model scored 100% on sustained or divided attention, confirming these tasks impose a measurable ceiling even for frontier models.
-- The performance hierarchy holds across all 33 models: selective attention outperforms both sustained and divided, which score similarly to each other. Distractor filtering appears to be better supported in current LLMs than sequential tracking or simultaneous stream management.
-- `gemma-3-1b` is a consistent low outlier across all three tasks (73.3% / 33.3% / 66.7%), with a particularly steep drop on sustained attention. It is the smallest model in the evaluated set by a significant margin, suggesting attentional control degrades sharply at smaller model sizes.
-- `gemini-2.0-flash` underperforms its newer variants on selective (80%) and sustained (77.8%), while `gemini-2.0-flash-lite` scores 94.4% on sustained, suggesting that generation number alone does not predict attentional performance.
+- Divided attention is the most discriminating task: 7 distinct performance levels, a 32pp spread (100% to 68%), and only 16 of 33 models at a perfect score. Multi-stream reasoning with numerical content is the hardest attentional demand tested.
+- Selective attention shows a consistent spread: 14 of 33 models scored 100% and no model scored below 73.3%, with a 26.7pp range driven largely by smaller models.
+- Sustained attention has the highest average (96.8%) but a bimodal distribution: 25 of 33 models scored 100%, while the remaining 8 spread between 90% and 36.7%. The task is well-handled by most frontier models but exposes significant weaknesses in smaller ones.
+- `gemma-3-1b` is a consistent low outlier across all three tasks (73.3% / 36.7% / 68.0%), with a particularly steep drop on sustained attention. It is the smallest model in the evaluated set by a significant margin, suggesting attentional control degrades sharply at smaller model sizes.
+- `gemini-2.0-flash` underperforms its generation on selective (80%) and scores below the median on divided (92%), while `gemini-2.0-flash-lite` scores 100% on sustained, suggesting that training differences rather than generation number determine attentional performance.
+- Per-row analysis in the executed notebook outputs indicates that failures in divided attention cluster in scenarios requiring simultaneous numerical reasoning across both streams. Simpler stream-identification scenarios show near-universal pass rates even among weaker models, suggesting that the challenge is not dual-stream tracking per se but maintaining numerical precision across two concurrent contexts.
 
 **Conclusions:**
 
-The results reveal a consistent and interpretable pattern. Selective attention is broadly well-supported at the frontier, likely because filtering irrelevant content from a single passage is a task type well-represented in model training. Sustained and divided attention are harder, and no model has mastered either.
+The results reveal an interpretable pattern. Selective attention is broadly well-supported at the frontier, likely because filtering irrelevant content from a single passage is a task type well-represented in model training. Divided attention is the hardest task by discrimination: only 16 of 33 models achieved a perfect score, and failures cluster specifically in scenarios that require simultaneous numerical reasoning across both streams. Sustained attention sits in between: most frontier models handle it well, but smaller models degrade sharply.
 
-The shared difficulty of sustained and divided attention points to a common underlying challenge: maintaining structure across a context that is designed to require effort or track multiple things simultaneously. This is distinct from general reading comprehension, and the benchmark results suggest it is an area where current models still have meaningful room to improve.
+The ceiling effects are informative rather than problematic. High pass rates among top-tier models confirm that the scenarios are well-formed and unambiguous. The spread below 90% is where real model differences emerge, and divided attention in particular produces the most granular separation of any task in this benchmark.
+
+As LLMs are deployed in environments requiring long-context tracking, multi-stream reasoning, and robust distractor filtering, understanding attentional performance becomes increasingly important. This benchmark provides one concrete, grounded way to measure it across a large set of frontier models.
 
 As LLMs are deployed in real-world environments that require long-context tracking, multi-stream reasoning, and robust distractor filtering, understanding attentional performance becomes increasingly important. This benchmark provides one concrete, grounded way to measure it.
 

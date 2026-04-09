@@ -33,13 +33,13 @@ The model is given two independent information streams and must simultaneously m
 
 Each notebook runs across all models available in the Kaggle environment (`kbench.llms`, 33 models evaluated) using a fixed judge model (`kbench.judge_llm`) to score every response. Using a fixed judge rather than self-evaluation eliminates the bias of each model grading its own output, making scores directly comparable across models.
 
-Assertion counts are standardized at 5 criteria per task row:
+Each task uses 5 judge-evaluated criteria per scenario. Scenario counts differ across tasks because each was calibrated to the configuration that maximized performance discrimination: additional scenarios improved spread for sustained and divided attention but compressed it for selective attention. Pass rates are used for all cross-task comparisons.
 
-| Task | Assertions per row | Total per model | Notes |
-|---|---|---|---|
-| Selective Attention | 5 judge criteria | 15 | |
-| Sustained Attention | 5 judge criteria + 1 regex hard-check | 18 | regex verifies the final numeric answer independently of the judge |
-| Divided Attention | 5 judge criteria | 15 | |
+| Task | Scenarios | Assertions per scenario | Total per model | Notes |
+|---|---|---|---|---|
+| Selective Attention | 3 | 5 judge criteria | 15 | |
+| Sustained Attention | 5 | 5 judge criteria + 1 regex hard-check | 30 | regex verifies the final numeric answer independently of the judge |
+| Divided Attention | 5 | 5 judge criteria | 25 | |
 
 ---
 
@@ -52,16 +52,17 @@ Evaluated across 33 models in the Kaggle environment. Full per-model breakdowns 
 | Task | Models | Avg Pass Rate | Top Score | Bottom Score |
 |---|---|---|---|---|
 | Selective Attention | 33 | 95.2% | 100% (14 models) | 73.3% |
-| Sustained Attention | 33 | 90.9% | 94.4% (24 models) | 33.3% |
-| Divided Attention | 33 | 91.3% | 93.3% (27 models) | 66.7% |
+| Sustained Attention | 33 | 96.8% | 100% (25 models) | 36.7% |
+| Divided Attention | 33 | 93.6% | 100% (16 models) | 68.0% |
 
 **Key findings:**
 
-- Selective attention is the strongest task overall: 14 of 33 models achieved a perfect score, and no model scored below 73.3%.
-- No model scored 100% on sustained or divided attention, confirming these tasks impose a measurable ceiling even for frontier models.
-- The performance hierarchy holds across all 33 models: selective > divided ≈ sustained. Distractor filtering is better-supported in current LLMs than sequential tracking or simultaneous stream-splitting.
-- `gemma-3-1b` is a consistent outlier across all three tasks (73.3% / 33.3% / 66.7%), with a particularly steep drop on sustained attention. It is the smallest model in the set by a significant margin.
-- `gemini-2.0-flash` underperforms its newer variants on selective (80%) and sustained (77.8%), while `gemini-2.0-flash-lite` scores 94.4% on sustained, suggesting architectural or training differences beyond generation alone.
+- Divided attention is the most discriminating task: 7 distinct performance levels, a 32pp spread (100% to 68%), and only 16 of 33 models at a perfect score. Multi-stream reasoning with numerical content is the hardest attentional demand tested.
+- Selective attention shows a consistent spread: 14 of 33 models scored 100% and no model scored below 73.3%, with a 26.7pp range driven largely by smaller models.
+- Sustained attention has the highest average (96.8%) but a bimodal distribution: 25 of 33 models scored 100%, while the remaining 8 spread between 90% and 36.7%. The task is well-handled by most frontier models but exposes significant weaknesses in smaller ones.
+- `gemma-3-1b` is a consistent low outlier across all three tasks (73.3% / 36.7% / 68.0%), with a particularly steep drop on sustained attention. It is the smallest model in the evaluated set by a significant margin.
+- `gemini-2.0-flash` underperforms its generation on selective (80%) and scores below the median on divided (92%), while `gemini-2.0-flash-lite` scores 100% on sustained, suggesting training differences that do not track model size or generation number alone.
+- Per-row analysis in the executed notebooks indicates that failures in divided attention cluster in scenarios requiring simultaneous numerical reasoning across both streams, while simpler stream-identification scenarios show near-universal pass rates.
 
 ---
 
