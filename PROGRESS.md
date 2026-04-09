@@ -69,11 +69,11 @@ Evaluated across 33 models. Full breakdowns in `results/` CSVs.
 
 | Task | Scenarios | Total Assertions | Avg Pass Rate | Top Score | Bottom Score |
 |---|---|---|---|---|---|
-| Selective Attention | 3 | 15 | 95.2% | 100% (14 models) | 73.3% |
-| Sustained Attention | 5 | 30 | 96.8% | 100% (25 models) | 36.7% |
-| Divided Attention | 5 | 25 | 93.6% | 100% (16 models) | 68.0% |
+| Selective Attention | 3 | 15 | 96.0% | 100% (18 models) | 66.7% |
+| Sustained Attention | 5 | 30 | 97.5% | 100% (28 models) | 40.0% |
+| Divided Attention | 5 | 25 | 92.6% | 100% (12 models) | 68.0% |
 
-`gemma-3-1b` is a consistent low outlier across all three tasks. Divided attention is the most discriminating task with 7 distinct performance levels and a 32pp spread.
+`gemma-3-1b` is the consistent low outlier across all three tasks. Divided attention is the strongest discriminator with 8 distinct performance levels and a 32pp spread. Only 5 models scored 100% across all three tasks.
 
 ---
 

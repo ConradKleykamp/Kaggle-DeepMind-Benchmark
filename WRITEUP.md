@@ -94,24 +94,30 @@ Evaluated across 33 models in the Kaggle environment. Full per-model breakdowns 
 
 | Task | Models | Avg Pass Rate | Top Score | Bottom Score |
 |---|---|---|---|---|
-| Selective Attention | 33 | 95.2% | 100% (14 models) | 73.3% |
-| Sustained Attention | 33 | 96.8% | 100% (25 models) | 36.7% |
-| Divided Attention | 33 | 93.6% | 100% (16 models) | 68.0% |
+| Selective Attention | 33 | 96.0% | 100% (18 models) | 66.7% |
+| Sustained Attention | 33 | 97.5% | 100% (28 models) | 40.0% |
+| Divided Attention | 33 | 92.6% | 100% (12 models) | 68.0% |
 
 **Key findings:**
 
-- Divided attention is the most discriminating task: 7 distinct performance levels, a 32pp spread (100% to 68%), and only 16 of 33 models at a perfect score. Multi-stream reasoning with numerical content is the hardest attentional demand tested.
-- Selective attention shows a consistent spread: 14 of 33 models scored 100% and no model scored below 73.3%, with a 26.7pp range driven largely by smaller models.
-- Sustained attention has the highest average (96.8%) but a bimodal distribution: 25 of 33 models scored 100%, while the remaining 8 spread between 90% and 36.7%. The task is well-handled by most frontier models but exposes significant weaknesses in smaller ones.
-- `gemma-3-1b` is a consistent low outlier across all three tasks (73.3% / 36.7% / 68.0%), with a particularly steep drop on sustained attention. It is the smallest model in the evaluated set by a significant margin, suggesting attentional control degrades sharply at smaller model sizes.
-- `gemini-2.0-flash` underperforms its generation on selective (80%) and scores below the median on divided (92%), while `gemini-2.0-flash-lite` scores 100% on sustained, suggesting that training differences rather than generation number determine attentional performance.
-- Per-row analysis in the executed notebook outputs indicates that failures in divided attention cluster in scenarios requiring simultaneous numerical reasoning across both streams. Simpler stream-identification scenarios show near-universal pass rates even among weaker models, suggesting that the challenge is not dual-stream tracking per se but maintaining numerical precision across two concurrent contexts.
+- Divided attention is the strongest discriminator across all 33 models: 8 distinct performance levels, a 32pp spread (100% to 68%), and only 12 of 33 models at a perfect score. No other task produces comparable separation between models at the same capability tier.
+- Selective attention is well-calibrated at 4 distinct levels (100% to 66.7%), with 18 of 33 models at a perfect score and 13 more clustered at 93.3%. The spread is real but compressed near the top.
+- Sustained attention exposes a ceiling effect: 28 of 33 models scored 100%, and the 5 remaining non-outlier models span only 10 percentage points (90% to 97%). It reliably identifies small-model failure but contributes little differentiation among frontier models.
+- Only 5 models scored 100% across all three tasks: `claude-opus-4-1`, `claude-sonnet-4-6`, `deepseek-v3.1`, `gemini-3.1-pro-preview`, and `qwen3-235b-a22b-instruct-2507`.
+- Divided attention reveals capability gaps invisible in the other tasks. `gpt-oss-120b` (76%), `gpt-5.4-mini` (80%), `gemma-3-12b` (84%), and `gemini-2.5-flash` (84%) all score 100% on sustained and at or near 100% on selective, yet drop significantly on divided. The task isolates a specific failure mode: maintaining numerical precision across two concurrent information streams.
+- `gemma-3-1b` is the consistent low outlier across all three tasks (66.7% / 40.0% / 68.0%), with a particularly steep drop on sustained attention. It is the smallest model in the evaluated set by a significant margin.
+- `gemini-2.0-flash` scores 100% on both sustained and divided while scoring only 86.7% on selective, a pattern suggesting relative strength in structured multi-step tasks versus single-passage distractor filtering.
+- Per-criterion analysis identifies the exact failure modes. In divided attention, halt cause attribution in the factory scenario drives the majority of failures: 15 of 33 models incorrectly attributed Factory B's supply delay halt, and 14 of 33 failed Factory A's equipment calibration halt — the two highest individual criterion failure rates in the entire benchmark. Output totals and defect counts on the same scenario failed in only 2 and 1 models respectively, confirming the difficulty is cross-stream attribution under concurrent load, not arithmetic.
+- In selective attention, 13 of 33 models failed a single criterion: not mentioning the lead researcher's hiking hobby in the research study scenario. This one distractor accounts for nearly all of selective attention's failures across all 33 models, and reflects a specific behavior — models summarize the full passage rather than filtering it to the task-relevant content.
+- In sustained attention, the regex hard-check correctly flags 4 models that gave wrong final numeric answers on the Alice net balance scenario (`claude-haiku`, `claude-opus-4-6`, `gpt-oss-20b`, and `gemma-3-1b`). These are precisely the models that appear below 100% in the summary results, validating the dual-assertion design.
 
 **Conclusions:**
 
-The results reveal an interpretable pattern. Selective attention is broadly well-supported at the frontier, likely because filtering irrelevant content from a single passage is a task type well-represented in model training. Divided attention is the hardest task by discrimination: only 16 of 33 models achieved a perfect score, and failures cluster specifically in scenarios that require simultaneous numerical reasoning across both streams. Sustained attention sits in between: most frontier models handle it well, but smaller models degrade sharply.
+The results reveal an interpretable and differentiated pattern across tasks. Selective attention is broadly well-supported at the frontier. Sustained attention is largely solved by current frontier models, but degrades sharply at smaller model sizes. Divided attention is the hardest task by discrimination: only 12 of 33 models achieved a perfect score, and failures cluster in scenarios requiring simultaneous numerical reasoning across both streams rather than in simpler stream-identification scenarios.
 
-The ceiling effects are informative rather than problematic. High pass rates among top-tier models confirm that the scenarios are well-formed and unambiguous. The spread below 90% is where real model differences emerge, and divided attention in particular produces the most granular separation of any task in this benchmark.
+The most informative finding is the cross-task drop pattern combined with the per-criterion data. Several models that score 100% on both sustained and selective fall to 76-84% on divided, and the criterion-level data shows exactly why: the factory scenario's halt cause attribution criteria (15/33 and 14/33 failure rates) are the primary driver. Models can track two streams and aggregate numbers correctly, but confuse which event belongs to which stream when both streams contain similar event types. This is a precise and previously uncharacterized failure mode. Only 5 of 33 models scored 100% across all three tasks.
+
+The ceiling effects are informative rather than problematic. High pass rates among top-tier models confirm the scenarios are well-formed and unambiguous. The spread below 100% is where real model differences emerge, and divided attention produces the most granular separation of any task in the benchmark: 8 distinct performance levels spanning 32 percentage points.
 
 As LLMs are deployed in environments requiring long-context tracking, multi-stream reasoning, and robust distractor filtering, understanding attentional performance becomes increasingly important. This benchmark provides one concrete, grounded way to measure it across a large set of frontier models.
 
