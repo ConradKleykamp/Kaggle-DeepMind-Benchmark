@@ -52,18 +52,18 @@ Evaluated across 33 models in the Kaggle environment. Full per-model breakdowns 
 | Task | Models | Avg Pass Rate | Top Score | Bottom Score |
 |---|---|---|---|---|
 | Selective Attention | 33 | 96.0% | 100% (18 models) | 66.7% |
-| Sustained Attention | 32 | 94.1% | 100% (21 models) | 16.7% |
+| Sustained Attention | 33 | 93.3% | 100% (21 models) | 16.7% |
 | Divided Attention | 33 | 92.6% | 100% (12 models) | 68.0% |
 
 **Key findings:**
 
 - Divided attention is the strongest discriminator: 8 distinct performance levels, a 32pp spread (100% to 68%), and only 12 of 33 models at a perfect score. It is the only task where a model's score meaningfully separates it from peers at the same capability tier.
 - Selective attention is well-calibrated at 4 distinct levels (100% to 66.7%), with 18 of 33 models at a perfect score and 13 more at 93.3%. The spread is real but compressed near the top.
-- Sustained attention shows stronger discrimination than before: 21 of 32 models scored 100% and 6 distinct performance levels span 83 percentage points (100% to 16.7%). The harder tracking scenarios expose real differences among frontier models while still clearly identifying small-model failure at the bottom.
-- Only 4 models scored 100% across all three tasks: `claude-opus-4-6`, `claude-sonnet-4-6`, `deepseek-v3.1`, and `gemini-3.1-pro-preview`.
-- Divided attention reveals capability gaps invisible in the other tasks. `gpt-5.4-mini` (80%), `gpt-oss-20b` (88%), `gemma-4-26b-a4b` (88%), and `gemma-4-31b` (88%) all score 100% on both selective and sustained, yet drop significantly on divided, suggesting a specific weakness in simultaneous multi-stream reasoning. `gpt-oss-120b` (76%) shows the steepest divided attention drop despite near-perfect scores on the other two tasks.
+- Sustained attention shows strong discrimination: 21 of 33 models scored 100% and 8 distinct performance levels span 83 percentage points (100% to 16.7%). The harder tracking scenarios expose real differences among frontier models while still clearly identifying small-model failure at the bottom.
+- Only 4 models scored 100% across all three tasks: `claude-opus-4-1`, `deepseek-v3.1`, `gemini-3.1-pro-preview`, and `qwen3-235b-a22b-instruct-2507`.
+- Divided attention reveals capability gaps invisible in the other tasks. `gpt-5.4-mini` (80%), `gemini-2.5-pro` (88%), `gemma-4-26b-a4b` (88%), and `gemma-4-31b` (88%) all score 100% on both selective and sustained, yet drop significantly on divided, suggesting a specific weakness in simultaneous multi-stream reasoning. `gpt-oss-120b` (76%) shows the steepest divided attention drop despite near-perfect scores on the other two tasks.
 - `gemma-3-1b` is the consistent low outlier across all three tasks (66.7% / 16.7% / 68.0%). Its steepest drop remains on sustained attention, where the harder tracking scenarios expose its limits most clearly.
-- `gemini-2.0-flash` scores 100% on divided and 90% on sustained while scoring only 86.7% on selective, suggesting relative strength in structured multi-step and multi-stream tasks versus single-passage distractor filtering.
+- `gemini-2.0-flash` scores 100% on divided and 80% on sustained while scoring only 86.7% on selective, suggesting relative strength in multi-stream reasoning tasks versus sequential tracking and single-passage distractor filtering.
 - Per-criterion analysis pinpoints the exact failure modes. In divided attention, halt cause attribution in the factory scenario drives the majority of failures: 15 of 33 models failed to correctly attribute Factory B's supply delay halt, and 14 of 33 failed Factory A's equipment calibration halt, the two highest individual criterion failure rates in the entire benchmark. Output and defect counts on the same scenario failed in only 2 and 1 models respectively, confirming the challenge is attribution under concurrent load, not arithmetic.
 - In selective attention, 13 of 33 models failed a single criterion: not mentioning the lead researcher's hiking hobby in the research study scenario. This one distractor accounts for nearly all of selective attention's failures and reflects a specific model behavior: summarizing the full passage context rather than filtering to the task-relevant content.
 - In sustained attention, the regex hard-check independently verifies the final numeric answer on each scenario, flagging incorrect answers even when the model's reasoning text passes judge evaluation. The dual-assertion design ensures both the quality of reasoning and the correctness of the final result are evaluated independently.

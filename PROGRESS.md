@@ -10,7 +10,7 @@ Submission for the **Google DeepMind x Kaggle AGI Benchmark Hackathon**. The ben
 
 ## Status: Complete
 
-All three tasks are implemented, executed, and submitted. Results have been collected across 32-33 models (sustained attention ran on 32 available models) and are documented in the `results/` CSVs and executed benchmark notebooks.
+All three tasks are implemented, executed, and submitted. Results have been collected across 33 models and are documented in the `results/` CSVs and executed benchmark notebooks.
 
 ---
 
@@ -74,10 +74,10 @@ Evaluated across 33 models. Full breakdowns in `results/` CSVs.
 | Task | Scenarios | Total Assertions | Avg Pass Rate | Top Score | Bottom Score |
 |---|---|---|---|---|---|
 | Selective Attention | 3 | 15 | 96.0% | 100% (18 models) | 66.7% |
-| Sustained Attention | 5 | 30 | 94.1% | 100% (21 models) | 16.7% |
+| Sustained Attention | 5 | 30 | 93.3% | 100% (21 models) | 16.7% |
 | Divided Attention | 5 | 25 | 92.6% | 100% (12 models) | 68.0% |
 
-`gemma-3-1b` is the consistent low outlier across all three tasks. Divided attention is the strongest discriminator with 8 distinct performance levels and a 32pp spread. Only 4 models scored 100% across all three tasks: `claude-opus-4-6`, `claude-sonnet-4-6`, `deepseek-v3.1`, and `gemini-3.1-pro-preview`.
+`gemma-3-1b` is the consistent low outlier across all three tasks. Divided attention is the strongest discriminator with 8 distinct performance levels and a 32pp spread. Only 4 models scored 100% across all three tasks: `claude-opus-4-1`, `deepseek-v3.1`, `gemini-3.1-pro-preview`, and `qwen3-235b-a22b-instruct-2507`.
 
 ---
 
