@@ -10,7 +10,7 @@ Submission for the **Google DeepMind x Kaggle AGI Benchmark Hackathon**. The ben
 
 ## Status: Complete
 
-All three tasks are implemented, executed, and submitted. Results have been collected across 33 models and are documented in the `results/` CSVs and executed benchmark notebooks.
+All three tasks are implemented, executed, and submitted. Results have been collected across 32-33 models (sustained attention ran on 32 available models) and are documented in the `results/` CSVs and executed benchmark notebooks.
 
 ---
 
@@ -27,16 +27,20 @@ All three tasks are implemented, executed, and submitted. Results have been coll
 ```
 .
 ├── notebooks/
-│   ├── divided_attention_benchmark.ipynb   # overview: runs all 33 models, visual output
-│   ├── divided_attention_task.ipynb        # task runner: single model via kbench.llm
-│   ├── selective_attention_benchmark.ipynb # overview: runs all 33 models, visual output
-│   ├── selective_attention_task.ipynb      # task runner: single model via kbench.llm
-│   ├── sustained_attention_benchmark.ipynb # overview: runs all 33 models, visual output
-│   └── sustained_attention_task.ipynb      # task runner: single model via kbench.llm
+│   ├── divided_attention_benchmark.ipynb        # benchmark: runs all models, visual output
+│   ├── divided_attention_task.ipynb             # task runner: single model via kbench.llm
+│   ├── selective_attention_benchmark.ipynb      # benchmark: runs all models, visual output
+│   ├── selective_attention_task.ipynb           # task runner: single model via kbench.llm
+│   ├── sustained_attention_benchmark.ipynb      # benchmark: runs all models, visual output
+│   ├── sustained_attention_benchmark_test.ipynb # harder variant used to validate scenario difficulty
+│   └── sustained_attention_task.ipynb           # task runner: single model via kbench.llm
 ├── results/
 │   ├── divided_attention_results.csv
+│   ├── divided_attention_detailed_results.csv
 │   ├── selective_attention_results.csv
-│   └── sustained_attention_results.csv
+│   ├── selective_attention_detailed_results.csv
+│   ├── sustained_attention_results.csv
+│   └── sustained_attention_detailed_results.csv
 ├── CLAUDE.md
 ├── PROGRESS.md
 └── README.md
@@ -58,8 +62,8 @@ A second set of notebooks (`*_task.ipynb`) uses `kbench.llm` to run against a si
 **Dual assertion strategy in sustained attention**
 Sustained attention uses both `assert_contains_regex` (hard check on the final numeric answer) and `assess_response_with_judge` (soft check on reasoning steps), separating correctness of the answer from correctness of the tracking process.
 
-**Standardized assertion counts**
-Selective and divided attention: 5 judge criteria per row, 15 total. Sustained attention: 5 judge criteria + 1 regex hard-check per row, 18 total.
+**Assertion counts per task**
+Selective attention: 5 judge criteria per row, 15 total (3 rows). Divided attention: 5 judge criteria per row, 25 total (5 rows). Sustained attention: 5 judge criteria + 1 regex hard-check per row, 30 total (5 rows).
 
 ---
 
@@ -70,10 +74,10 @@ Evaluated across 33 models. Full breakdowns in `results/` CSVs.
 | Task | Scenarios | Total Assertions | Avg Pass Rate | Top Score | Bottom Score |
 |---|---|---|---|---|---|
 | Selective Attention | 3 | 15 | 96.0% | 100% (18 models) | 66.7% |
-| Sustained Attention | 5 | 30 | 97.5% | 100% (28 models) | 40.0% |
+| Sustained Attention | 5 | 30 | 94.1% | 100% (21 models) | 16.7% |
 | Divided Attention | 5 | 25 | 92.6% | 100% (12 models) | 68.0% |
 
-`gemma-3-1b` is the consistent low outlier across all three tasks. Divided attention is the strongest discriminator with 8 distinct performance levels and a 32pp spread. Only 5 models scored 100% across all three tasks.
+`gemma-3-1b` is the consistent low outlier across all three tasks. Divided attention is the strongest discriminator with 8 distinct performance levels and a 32pp spread. Only 4 models scored 100% across all three tasks: `claude-opus-4-6`, `claude-sonnet-4-6`, `deepseek-v3.1`, and `gemini-3.1-pro-preview`.
 
 ---
 
