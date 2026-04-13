@@ -58,11 +58,13 @@ All scenarios were handcrafted to isolate the target attentional behavior and wr
 
 The benchmark runs inside the Kaggle notebook environment using the `kaggle-benchmarks` framework. Each task is defined with the `@kbench.task` decorator and loops over all available models via `kbench.llms`. Two assertion types are used: `assess_response_with_judge` sends criteria to the fixed external judge, and `assert_contains_regex` independently verifies final numeric answers. Scenario counts differ across tasks because each was calibrated to the configuration that maximized performance discrimination.
 
+**Prompting:** Each model receives a scenario-specific prompt containing the full context (passage, records, or dual streams) and a single explicit question, with no chain-of-thought instruction or output format constraint imposed. **Scoring:** Responses are evaluated against five task-specific criteria by a fixed external judge (`kbench.judge_llm`); sustained attention also applies a regex hard-check on the final numeric answer independently of the judge. The model's score is the fraction of criteria passed across all scenarios. **Iteration:** Scenarios were manually written and refined until they produced meaningful score separation across models, with additional scenarios added to sustained and divided attention where the initial set compressed scores near the ceiling.
+
 ---
 
 ## Results, Insights, and Conclusions
 
-Full per-model breakdowns are available in the results CSVs and executed notebooks.
+Full per-model breakdowns are available in the results CSVs, executed notebooks, and visualizations (heatmap and bar chart).
 
 > **Note:** LLM outputs are non-deterministic and no random seed can be set for hosted models. Pass rates may vary slightly across runs. The figures below reflect a single full evaluation run.
 
