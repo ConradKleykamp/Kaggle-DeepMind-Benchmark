@@ -12,5 +12,5 @@ Kaggle notebook using the kaggle-benchmarks framework.
 - GitHub for version control
 
 ## Structure
-- notebooks/ -- Kaggle benchmark notebooks (overview) and task notebooks (single-model)
-- results/ -- CSV output from each benchmark run
+- notebooks/ -- benchmark notebooks (all models), task notebooks (single model), and visualization notebook
+- results/ -- CSV results and PNG visualizations from each benchmark run

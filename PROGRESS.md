@@ -27,14 +27,16 @@ All three tasks are implemented, executed, and submitted. Results have been coll
 ```
 .
 ├── notebooks/
+│   ├── attention_benchmark_visualizations.ipynb # heatmap + score distributions from results CSVs
 │   ├── divided_attention_benchmark.ipynb        # benchmark: runs all models, visual output
 │   ├── divided_attention_task.ipynb             # task runner: single model via kbench.llm
-│   ├── selective_attention_benchmark.ipynb      # benchmark: runs all models, visual output
-│   ├── selective_attention_task.ipynb           # task runner: single model via kbench.llm
-│   ├── sustained_attention_benchmark.ipynb      # benchmark: runs all models, visual output
-│   ├── sustained_attention_benchmark_test.ipynb # harder variant used to validate scenario difficulty
-│   └── sustained_attention_task.ipynb           # task runner: single model via kbench.llm
+│   ├── selective_attention_benchmark.ipynb
+│   ├── selective_attention_task.ipynb
+│   ├── sustained_attention_benchmark.ipynb
+│   └── sustained_attention_task.ipynb
 ├── results/
+│   ├── attention_distributions.png
+│   ├── attention_heatmap.png
 │   ├── divided_attention_results.csv
 │   ├── divided_attention_detailed_results.csv
 │   ├── selective_attention_results.csv

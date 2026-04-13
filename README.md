@@ -55,6 +55,8 @@ Evaluated across 33 models in the Kaggle environment. Full per-model breakdowns 
 | Sustained Attention | 33 | 93.3% | 100% (21 models) | 16.7% |
 | Divided Attention | 33 | 92.6% | 100% (12 models) | 68.0% |
 
+![Attention Benchmark Heatmap](results/attention_heatmap.png)
+
 **Key findings:**
 
 - Divided attention is the strongest discriminator: 8 distinct performance levels, a 32pp spread (100% to 68%), and only 12 of 33 models at a perfect score. It is the only task where a model's score meaningfully separates it from peers at the same capability tier.
@@ -90,10 +92,9 @@ Evaluated across 33 models in the Kaggle environment. Full per-model breakdowns 
 │   ├── selective_attention_benchmark.ipynb
 │   ├── selective_attention_task.ipynb
 │   ├── sustained_attention_benchmark.ipynb
-│   ├── sustained_attention_benchmark_test.ipynb
 │   └── sustained_attention_task.ipynb
 ├── results/
-│   ├── attention_distribution.png
+│   ├── attention_distributions.png
 │   ├── attention_heatmap.png
 │   ├── divided_attention_results.csv
 │   ├── divided_attention_detailed_results.csv
