@@ -104,8 +104,4 @@ Claude Code was used throughout this project as a development assistant, primari
 
 ## References and Citations
 
-- Broadbent, D. E. (1958). *Perception and Communication.* Pergamon Press.
-- Treisman, A. M. (1964). Selective attention in man. *British Medical Bulletin, 20*(1), 12-16.
-- Parasuraman, R. (1984). Sustained attention in detection and discrimination. In R. Parasuraman & D. R. Davies (Eds.), *Varieties of Attention.* Academic Press.
-- Kahneman, D. (1973). *Attention and Effort.* Prentice-Hall.
 - Kaggle Benchmarks framework: [https://www.kaggle.com/competitions/kaggle-measuring-agi](https://www.kaggle.com/competitions/kaggle-measuring-agi)
