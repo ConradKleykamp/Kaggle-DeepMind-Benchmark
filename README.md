@@ -90,7 +90,8 @@ Evaluated across 33 models in the Kaggle environment. Full per-model breakdowns 
 │   ├── selective_attention_task.ipynb           # task runner: single model via kbench.llm
 │   ├── sustained_attention_benchmark.ipynb      # benchmark: runs all models, visual output
 │   ├── sustained_attention_benchmark_test.ipynb # harder variant used to validate scenario difficulty
-│   └── sustained_attention_task.ipynb           # task runner: single model via kbench.llm
+│   ├── sustained_attention_task.ipynb           # task runner: single model via kbench.llm
+│   └── visualizations.ipynb                    # heatmap + score distributions from results CSVs
 ├── results/
 │   ├── divided_attention_results.csv
 │   ├── divided_attention_detailed_results.csv
