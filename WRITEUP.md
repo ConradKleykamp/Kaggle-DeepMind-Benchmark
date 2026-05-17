@@ -12,12 +12,6 @@ Can AI Models Pay Attention? An Attention Benchmark for Frontier Language Models
 
 ---
 
-## Your Team
-
-Conrad Kleykamp (individual submission)
-
----
-
 ## Problem Statement
 
 Attention is fundamental to intelligence. Before reasoning or planning, a system must focus on what matters, ignore what does not, track information over time, and when needed, monitor multiple things at once.
